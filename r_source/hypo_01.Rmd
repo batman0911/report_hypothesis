@@ -9,22 +9,52 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+```{r}
+sigma <- 2
+mu_0 <- 1
+mu_1 <- 4
+# rejected region of H0 (2, +)
+# alpha, type 1: H0 is correct but rejected
+# alpha = P(X_1 > 2|N(1,2)) = P((X_1 - 1)/2 > (2 - 1)/2) 
+1 - pnorm(2, 1, 2)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+# beta, type 2: H0 is false but accepted
+# beta = P(X_2 < 2|N(4,2))
+pnorm(2, 4, 2)
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+log(0.95) / 2
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+sigma <- 6
+mu <- 40
+pnorm(-2)
+pnorm(2)
+```
+
+example 9.6
+P(1.1 < X < 1.3 | N(1,1)) + P(X > 2.461 | N(1,1))
+= P(X < 1.3N) - P(X < 1.1N) + P(X > 2.461N)
+```{r}
+mu_0 = 1
+mu_1 = 2
+sigma = 1
+alpha = 1 - pnorm(2.036, mu_0, sigma)
+beta = pnorm(2.036, mu_1, sigma)
+c(alpha, beta)
+pnorm(1.3, 1, 1) - pnorm(1.1, 1, 1) + 1 - pnorm(2.461, 1, 1)
+```
+
+example 9.7
+H0 : mu = 1.8
+H1 : mu > 1.8
+```{r}
+n = 30
+sigma = 2
+xmean = 56 / n
+xmean
+```
+
+
