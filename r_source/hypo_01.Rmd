@@ -50,10 +50,17 @@ pnorm(1.3, 1, 1) - pnorm(1.1, 1, 1) + 1 - pnorm(2.461, 1, 1)
 example 9.7
 H0 : mu = 1.8
 H1 : mu > 1.8
+rejection region: P(Z > Z_{1-alpha})
+z = 1.825 is not greater than z0 = 1.64
 ```{r}
 n <- 30
+mu <- 1.8
 sigma <- 2
 xmean <- 56 / n
+alpha <- 0.05
+z0 <- qnorm(1 - alpha)
+z <- (xmean - mu) / (sigma / sqrt(n))
+z0
 ```
 
 
