@@ -38,11 +38,11 @@ example 9.6
 P(1.1 < X < 1.3 | N(1,1)) + P(X > 2.461 | N(1,1))
 = P(X < 1.3N) - P(X < 1.1N) + P(X > 2.461N)
 ```{r}
-mu_0 = 1
-mu_1 = 2
-sigma = 1
-alpha = 1 - pnorm(2.036, mu_0, sigma)
-beta = pnorm(2.036, mu_1, sigma)
+mu_0 <- 1
+mu_1 <- 2
+sigma <- 1
+alpha <- 1 - pnorm(2.036, mu_0, sigma)
+beta <- pnorm(2.036, mu_1, sigma)
 c(alpha, beta)
 pnorm(1.3, 1, 1) - pnorm(1.1, 1, 1) + 1 - pnorm(2.461, 1, 1)
 ```
@@ -51,10 +51,9 @@ example 9.7
 H0 : mu = 1.8
 H1 : mu > 1.8
 ```{r}
-n = 30
-sigma = 2
-xmean = 56 / n
-xmean
+n <- 30
+sigma <- 2
+xmean <- 56 / n
 ```
 
 

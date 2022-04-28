@@ -59,11 +59,11 @@
 \RequirePackage{algorithmicx}
 
 % Use Times New Roman as default font
-\RequirePackage{helvet}
+% \RequirePackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 
 % Use Garamond as default font
-%\RequirePackage[urw-garamond]{mathdesign}
+% \RequirePackage[urw-garamond]{mathdesign}
 
 % Floats
 \RequirePackage{float}
