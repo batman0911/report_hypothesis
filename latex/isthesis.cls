@@ -129,6 +129,10 @@
 % Allow for "Textmarker" highlighting \texthl{highlighted text}
 \RequirePackage{soul}
 
+% custom package
+
+\RequirePackage{mdframed} %nice frames
+
 % \todo Notes
 \setlength{\marginparwidth}{2cm}
 \RequirePackage{todonotes}
@@ -151,7 +155,7 @@
 \definecolor{fau-green}{RGB}{123,183,37}
 \definecolor{fau-grey}{RGB}{140,159,177}
 
- 
+
  % Processing of advanced options
  % (keys are can be defined later)
  \newcommand{\isthesis}[1]{
