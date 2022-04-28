@@ -10,8 +10,55 @@ các tham số $\theta$. Giả thiết null $H_0$ được định nghĩa trong 
 $[\theta \in \Theta_0]$ và đối thiết $H_1$ được định nghĩa trong miền
 $[\theta \in \Theta_1]$ và $\Theta_0 \cup \Theta_1 = \Theta$
 
-\paragraph{TODO}
-\begin{itemize}
-	\item Configuration switch for having \textbackslash chapter\{\} begin on a new page
-	\item Replace \texttt{kvoptions} with \texttt{pgfkeys}
-\end{itemize}
+\section{Sai lầm loại I và sai lầm loại II}
+Khi sử dụng phương pháp kiểm định giả thiết chúng ta luôn có xác suất mắc sai lầm.
+Ví dụ chúng ta có thể bác bỏ giả thiết null trong khi giả thiết trên thực tế là đúng
+hoặc ngược lại, giả thiết null trên thực tế là sai mà chúng ta lại chấp nhận nó. \\ 
+Ta định nghĩa 2 loại sai lầm và sẽ tìm hiểu xác suất mắc phải sai lầm đó trong kiểm định 
+giả thiết thống kê.
+
+\begin{center}
+    \begin{tabular}{| c | c |}
+        \hline
+        Sai lầm loại I & Giả thiết null là đúng nhưng bị bác bỏ \\
+		Sai lầm loại II & Giả thiết null là sai nhưng không bị bác bỏ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Cả 2 loại này đều dẫn đến quyết định sai lầm trong kết luận.\\
+Xác suất mắc sai lầm loại I còn được gọi là \textbf{mức ý nghĩa}
+\begin{equation}
+	\begin{split}
+		\alpha = P(\text{sai lầm loại I}) = P(\text{bác bỏ } H_0 | H_0 \text{ đúng}) \\
+		= P(\text{chấp nhận } H_1 | H_0 \text{ đúng})	
+	\end{split}
+\end{equation}
+Xác suất mắc sai lầm loại II $\beta$:
+\begin{equation}
+	\begin{split}
+		\beta = P(\text{sai lầm loại II}) = P(\text{không bác bỏ } H_0 | H_0 \text{ sai}) \\
+	= P(\text{chấp nhận } H_0 | H_1 \text{ đúng})
+	\end{split}
+\end{equation}
+
+\section{Power function}
+Đối thiết $H_1: \theta \in \Theta_1$, hàm power của kiểm định được định nghĩa như sau:
+\begin{equation}
+	\begin{split}
+		Power(\theta) = P(\text{bác bỏ } H_0 | H_0 \text{ sai}) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) \\
+		= 1 - \beta(\theta)
+	\end{split}
+\end{equation}
+Với $\beta(\theta)$ là xác suất mắc sai lầm loại II với 1 ước lượng $\theta$ cho trước.
+
+\section{Kiểm định đồng nhất tốt nhất}
+Trước hết chúng ta cùng xem xét ví dụ sau đây \\
+\textbf{Ví dụ: } Cho một tổng thể với phân bố chuẩn $N(\mu, 1)$, thực hiện 1 phép thử. 
+Kiểm định giả thiết $H_0: \mu = 1$ với đối thiết $H_1: \mu = 2$. Tìm mức ý nghĩa và power của kiểm định 
+trong các miền bác bỏ sau: \\
+(a) $(2.036, \infty)$ \\
+(b) $(1.100, 1.300) \cup (2.461, \infty)$
+
+(a) $R = (2.036, \infty),
+$$\alpha = P(X > 2.036 | N(1, 1)) = P(\frac{X-1}{1} > \frac{2.036-1}{1}) = P(Z > 1.036) = 0.150$$
