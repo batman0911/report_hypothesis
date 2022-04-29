@@ -1,65 +1,62 @@
-% \chapter{Kiểm định giả thiết cho trung bình}
+\chapter{Kiểm định giả thiết cho trung bình}
 
-% \section{Kiểm định giả thiết cho trung bình với mẫu có phân bố chuẩn và phương sai đã biết}
-% Giả thiết null $H_0: \mu = \mu_0$ \\
-% Thực hiện test với mẫu ngẫu nhiên kích thước $n$, phân bố của $\bar{X}$ là phân bố chuẩn $N(\mu_0, \sigma / \sqrt{n})$
-% (Giải sử $H_0$ là đúng). \\
-% Định lý giới hạn trung tâm cũng chỉ ra rằng $\bar{X}$ có phân bố chuẩn với cỡ mẫu lớn. \\
-% Tham số chuẩn hóa 
+\section{Kiểm định giả thiết cho trung bình với mẫu có phân bố chuẩn và phương sai đã biết}
+Giả thiết null $H_0: \mu = \mu_0$ \\
+Thực hiện test với mẫu ngẫu nhiên kích thước $n$, phân bố của $\bar{X}$ là phân bố chuẩn $N(\mu_0, \sigma / \sqrt{n})$
+(Giải sử $H_0$ là đúng). \\
+Định lý giới hạn trung tâm cũng chỉ ra rằng $\bar{X}$ có phân bố chuẩn với cỡ mẫu lớn. \\
+Tham số chuẩn hóa 
 
-% $$Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} \sim N(0, 1)$$
+$$Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} \sim N(0, 1)$$
 
-% Ta có
+Ta có
 
-% \begin{center}
-%     \begin{tabular}{| c | c | c | c |}
-%         \hline
-%         Đối thiết & $H_1: \mu < \mu_0$ & $H_1: \mu > \mu_0$ & $H_1: \mu \neq \mu_0$ \\
-%         Miền bác bỏ & $z < z_{\alpha}$ & $z > z_{1-\alpha}$ & $\lvert z \rvert > z_{1 - \alpha / 2}$ \\
-%         \hline
-%     \end{tabular}
-% \end{center}
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        Đối thiết & $H_1: \mu < \mu_0$ & $H_1: \mu > \mu_0$ & $H_1: \mu \neq \mu_0$ \\
+        Miền bác bỏ & $z < z_{\alpha}$ & $z > z_{1-\alpha}$ & $\lvert z \rvert > z_{1 - \alpha / 2}$ \\
+        \hline
+    \end{tabular}
+\end{center}
 
-% Trong đó $\Phi(z_\alpha) = \alpha$ \\
-% Nhắc lại, trong ngôn ngữ $R$
-% \begin{lstlisting}{language=R}
-%     z.x = qnorm(x)
-% \end{lstlisting}
+Trong đó $\Phi(z_\alpha) = \alpha$ \\
+Nhắc lại, trong ngôn ngữ $R$
+\begin{lstlisting}{language=R}
+    z.x = qnorm(x)
+\end{lstlisting}
 
-% demo code: 
-% \begin{lstlisting}{language=R}
-%     sigma <- 6
-%     mu <- 40
-%     pnorm(-2)
-%     pnorm(2)
-% \end{lstlisting}
+demo code: 
+\begin{lstlisting}{language=R}
+    sigma <- 6
+    mu <- 40
+    pnorm(-2)
+    pnorm(2)
+\end{lstlisting}
 
 
-% \section{Kiểm định cho trung bình với mẫu có phân bố chuẩn và phương sai chưa biết}
+\section{Kiểm định cho trung bình với mẫu có phân bố chuẩn và phương sai chưa biết}
 
-% Giả thiết null $H_0: \mu = \mu_0$ \\
-% Tham số chuẩn hóa được xem xét trong trường hợp này khác với trường hợp đã biết phương sai của tổng thể
-% :
-% $$T = \frac{\bar{X} - \mu_0}{S/ \sqrt{n}} \sim t_{n - 1}$$
+Giả thiết null $H_0: \mu = \mu_0$ \\
+Tham số chuẩn hóa được xem xét trong trường hợp này khác với trường hợp đã biết phương sai của tổng thể
+:
+$$T = \frac{\bar{X} - \mu_0}{S/ \sqrt{n}} \sim t_{n - 1}$$
 
-% Ta có:
+Ta có:
 
-% \begin{center}
-%     \begin{tabular}{| c | c | c | c |}
-%         \hline
-%         Đối thiết & $H_1: \mu < \mu_0$ & $H_1: \mu > \mu_0$ & $H_1: \mu \neq \mu_0$ \\
-%         Miền bác bỏ & $t < t_{\alpha; n - 1}$ & $t > t_{1-\alpha; n - 1}$ & $\lvert t \rvert > t_{1 - \alpha / 2; n - 1}$ \\
-%         \hline
-%     \end{tabular}
-% \end{center}
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        Đối thiết & $H_1: \mu < \mu_0$ & $H_1: \mu > \mu_0$ & $H_1: \mu \neq \mu_0$ \\
+        Miền bác bỏ & $t < t_{\alpha; n - 1}$ & $t > t_{1-\alpha; n - 1}$ & $\lvert t \rvert > t_{1 - \alpha / 2; n - 1}$ \\
+        \hline
+    \end{tabular}
+\end{center}
 
-% Để tính $t_{x; y}$ trong $R$ ta dùng hàm:
+Để tính $t_{x; y}$ trong $R$ ta dùng hàm:
 
-% \begin{lstlisting}{language=R}
-%     t.x.y = qt(x, y)
-% \end{lstlisting}
-
-% \subsection{Lists}
-% You can use the default \LaTeX \- functions for writing lists, viz., \texttt{\textbackslash enumerate} for numbered lists and \texttt{\textbackslash itemize} for bullet point lists. Again, the \texttt{\textbackslash subsubsection} and \texttt{\textbackslash paragraph} can be used as structural elements, e.g., when listing definitions of terms.
+\begin{lstlisting}{language=R}
+    t.x.y = qt(x, y)
+\end{lstlisting}
 
 
