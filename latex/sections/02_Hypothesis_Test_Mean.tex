@@ -59,4 +59,27 @@ Ta có:
     t.x.y = qt(x, y)
 \end{lstlisting}
 
+\section{Bài tập}
+\textbf{pr3}: Mức ý nghĩa $5\%$, tính power với giả thiết $H_0: \mu = 100$ với đối 
+thiết $H_1: \mu \neq 100$ với cỡ mẫu 36 có phân phối chuẩn $N(120, 50)$
 
+Tham số chuẩn hóa: 
+$$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$$
+Hàm power: 
+$$1 - \beta = P(|Z| > Z_{1 - \alpha / 2}) = P(Z < Z_{\alpha / 2}) + P(Z > Z_{1 - \alpha/2})$$
+
+Code $R$:
+\begin{lstlisting}
+    mu = 100
+    mu0 = 120
+    sigmaX = 50 / 6
+    alpha = 0.05
+    z1 = qnorm(alpha / 2, mu, sigmaX)
+    z2 = qnorm(1 - alpha / 2, mu, sigmaX)
+    pnorm(z1, mu0, sigmaX) + 1 - pnorm(z2, mu0, sigmaX)
+\end{lstlisting}
+
+Kết quả $1- \beta = 0.67$
+\begin{lstlisting}
+    [1] 0.670051
+\end{lstlisting}
