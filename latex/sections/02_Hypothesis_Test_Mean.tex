@@ -83,3 +83,28 @@ Kết quả $1- \beta = 0.67$
 \begin{lstlisting}
     [1] 0.670051
 \end{lstlisting}
+
+\textbf{pr4}: Kiểm định cho giả thiết $H_0: \mu = 170$ và đối thiết $H_1: \mu < 170$
+cho đại lượng loss trong tập dữ liệu Rubber.
+
+Cách làm đơn giản với code $R$:
+\begin{lstlisting}
+    library(MASS)
+    data("Rubber")
+    loss <- Rubber$loss
+    t.test(loss, alternative = c("less"), mu = 170)
+\end{lstlisting}
+Kết quả:
+\begin{lstlisting}
+        One Sample t-test
+
+    data:  loss
+    t = 0.33785, df = 29, p-value = 0.631
+    alternative hypothesis: true mean is less than 170
+    95 percent confidence interval:
+        -Inf 202.7589
+    sample estimates:
+    mean of x 
+    175.4333 
+\end{lstlisting}
+Kết luận: với độ tin cậy $95\%$ ta có thể bác bỏ giả thiết $H_0$, chấp nhận $H_1: \mu < 170$
