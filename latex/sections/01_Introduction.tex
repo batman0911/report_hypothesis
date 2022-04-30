@@ -62,4 +62,29 @@ trong các miền bác bỏ sau: \\
 
 (a) $R = (2.036, \infty)$,
 $$\alpha = P(X > 2.036 | N(1, 1)) = P(\frac{X-1}{1} > \frac{2.036-1}{1}) = P(Z > 1.036) = 0.150$$
+$$\beta = P(X > 2.036 | N(2, 1)) = P(\frac{X-2}{1} > \frac{2.036-2}{1}) = P(Z \leqslant 1.036) = 0.514$$
+hàm power của test $1 - \beta = 1 - 0.514 = 0.486$
 
+(b) miền bác bỏ $(1.100, 1.300) \cup (2.461, \infty)$, ta có xác suất mắc sai lầm loại I: 
+\begin{align*}
+	\begin{split}
+		\alpha = P(1.100 < X < 1.300 | N(1, 1)) + P(X > 2.461 | N(1, 1) \\
+		= P(0.100 < Z < 0.300) + P(Z > 1.461) = 0.150
+	\end{split}	
+\end{align*}
+xác suất mắc sai lầm loại II:
+\begin{align*}
+	\begin{split}
+		\beta = P(X \leqslant 1.100 \ N(2, 1)) + P(1.300 \leqslant X \leqslant 2.461 | N(2, 1)) \\
+		= P(Z \leqslant -0.900) + P(-0.700 \leqslant Z \leqslant 0.461) = 0.620
+	\end{split}
+\end{align*}
+hàm power $1 - \beta = 0.380$
+Ta có thể thực hiện tính toán trong $R$ như sau 
+\begin{lstlisting}{language=R}
+	alpha = pnorm(1.3, 1, 1) - pnorm(1.1, 1, 1) + (1 - pnorm(2.461, 1, 1))
+	round(alpha, 3)
+
+	beta = pnorm(1.1, 2, 1) + pnorm(2.416, 2, 1) - pnorm(1.3, 2, 1)
+	round(beta, 3)
+\end{lstlisting}
