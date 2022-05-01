@@ -1,0 +1,29 @@
+\chapter{Kiểm định giả thiết cho tỉ lệ}
+
+\section{Kiểm định cho tỉ lệ với trong text nhị thức}
+
+Ta xem xét biến ngẫu nhiên có phân bố nhị thức $Y \sim Bin(n, \pi)$, giả thiết null
+$H_0: \pi = \pi_0$. 
+Test thống kê cho $y_{obs} = \text{Số quan sát thành công}$
+
+Ta có 3 đối thiết ứng với công thức p-value tương ứng như sau:
+
+\begin{center}
+    \begin{tabular}{| c | c |}
+        \hline
+        Đối thiết & p-value \\
+        \hline
+        $H_1: \pi < \pi_0$ & $P(Y \leqslant y_{obs} | H_0) = \sum_{i = 0}^{y_{obs}}\begin{pmatrix}
+            n \\ i
+        \end{pmatrix} \pi_0^i(1 - \pi_0)^{n - i}$ \\ 
+        \hline 
+        $H_1: \pi > \pi_0$ & $P(Y \geqslant y_{obs} | H_0) = \sum_{i = y_{obs}}^{n}\begin{pmatrix}
+            n \\ i
+        \end{pmatrix} \pi_0^i(1 - \pi_0)^{n - i}$ \\
+        \hline
+        $H_1: \pi \neq \pi_0$ & $\sum_0^n I(P(Y = i) \leqslant P(Y = y_{obs}))\begin{pmatrix}
+            n \\ i
+        \end{pmatrix} \pi_0^i (1 - \pi_0)^{n- i}$ \\
+        \hline
+    \end{tabular}
+\end{center}

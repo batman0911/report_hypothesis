@@ -11,6 +11,10 @@ position the caret at any line or the code chunk, then click "+".
 The code chunk appears:
 ```{r}
 library(PASWR)
+```
+
+
+```{r}
 zsum.test(mean.x = 100, n.x = 36, sigma.x = 50, mu = 120)
 ```
 
@@ -50,4 +54,9 @@ hist(loss)
 ```{r}
 t.test(loss, alternative = c("less"), mu = 170)
 ```
+```{r}
+?t.test
+t.test(vit2005$totalprice, mu = 60000, alternative = "greater")
+```
+
 

@@ -1,0 +1,21 @@
+\chapter{Kiểm định cho phương sai}
+
+\section{Kiểm định cho phương sai với mẫu có phân bố chuẩn}
+
+Cho $n$ mẫu ngẫu nhiên $X_1, X_2, .. , X_n$ có phân bố chuẩn $N(\mu, \sigma)$, 
+đại lượng chuẩn hóa sau có phân bố $\chi^2$:
+\begin{equation}
+    \frac{(n - 1)S^2}{\sigma^2} \sim \chi^2_{n - 1}
+\end{equation}
+Giả thiết null cho phương sai $H_0: \sigma^2 = \sigma_0^2$, giá trị test thống kê:
+$$\chi_{obs}^2 = \frac{(n - 1)S^2}{\sigma_0^2}$$
+Ba đối thiết và miền bác bỏ $H_0$ tương ứng cho dưới bảng sau:
+
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        Đối thiết & $H_1: \sigma^2 < \sigma_0^2$ & $H_1: \sigma^2 > \sigma_0^2$ & $H_1: \sigma^2 \neq \sigma_0^2$ \\
+        Miền bác bỏ & $\chi_{obs}^2 < \chi_{\alpha, n - 1}^2$ & $\chi_{obs}^2 > \chi_{\alpha, n - 1}^2$ & $\chi_{obs}^2 < \chi_{\alpha/2, n - 1}^2 \cup \chi_{obs}^2 > \chi_{1 - \alpha/2, n - 1}^2$ \\
+        \hline
+    \end{tabular}
+\end{center}
