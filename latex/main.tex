@@ -11,6 +11,9 @@
 
 \usepackage[utf8]{vietnam}
 
+% custom package
+\usepackage{eurosym}
+
 % Graphics rendering using TikZ
 % See: https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ
 \usepackage{tikz}
@@ -120,14 +123,15 @@
         % Add your content files:
 		\input{sections/01_Introduction}
 		\input{sections/02_Hypothesis_Test_Mean}
-		\input{sections/03_Compilation}
+		\input{sections/03_Hypothesis_Test_Var.tex}
+        \input{sections/04_Hypothesis_Test_Propotion.tex}
     \end{content}
     
     \pagenumbering{Roman}
     \setcounter{page}{\numexpr\value{savepage}}
 
     % References
-    \references{}
+    % \references{}
     
     % Appendix
      \begin{appendix}

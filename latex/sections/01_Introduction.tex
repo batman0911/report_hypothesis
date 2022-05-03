@@ -62,4 +62,116 @@ trong các miền bác bỏ sau: \\
 
 (a) $R = (2.036, \infty)$,
 $$\alpha = P(X > 2.036 | N(1, 1)) = P(\frac{X-1}{1} > \frac{2.036-1}{1}) = P(Z > 1.036) = 0.150$$
+$$\beta = P(X > 2.036 | N(2, 1)) = P(\frac{X-2}{1} > \frac{2.036-2}{1}) = P(Z \leqslant 1.036) = 0.514$$
+hàm power của test $1 - \beta = 1 - 0.514 = 0.486$
 
+(b) miền bác bỏ $(1.100, 1.300) \cup (2.461, \infty)$, ta có xác suất mắc sai lầm loại I: 
+\begin{align*}
+	\begin{split}
+		\alpha = P(1.100 < X < 1.300 | N(1, 1)) + P(X > 2.461 | N(1, 1) \\
+		= P(0.100 < Z < 0.300) + P(Z > 1.461) = 0.150
+	\end{split}	
+\end{align*}
+xác suất mắc sai lầm loại II:
+\begin{align*}
+	\begin{split}
+		\beta = P(X \leqslant 1.100 \ N(2, 1)) + P(1.300 \leqslant X \leqslant 2.461 | N(2, 1)) \\
+		= P(Z \leqslant -0.900) + P(-0.700 \leqslant Z \leqslant 0.461) = 0.620
+	\end{split}
+\end{align*}
+hàm power $1 - \beta = 0.380$
+Ta có thể thực hiện tính toán trong $R$ như sau 
+\begin{lstlisting}{language=R}
+	alpha = pnorm(1.3, 1, 1) - pnorm(1.1, 1, 1) + (1 - pnorm(2.461, 1, 1))
+	round(alpha, 3)
+
+	beta = pnorm(1.1, 2, 1) + pnorm(2.416, 2, 1) - pnorm(1.3, 2, 1)
+	round(beta, 3)
+\end{lstlisting}
+Ta nhận thấy rằng với cùng 1 mức ý nghĩa $\alpha = 0.150$ thì hàm power có giá trị khác nhau 
+với 2 miền bác bỏ trong phần a và phần b. Nhìn chung, sẽ tồn tại 1 test được coi là "tốt hơn"
+(theo nghĩa có giá trị power lớn hơn hay là xác xuất mắc sai lầm loại II nhỏ hơn).
+Thế nên chúng ta sẽ cùng đi tìm 1 test "tốt nhất" (\textbf{uniformly most powerful}).
+
+\section{p-value hay mức tới hạn}
+p-value hay mức tới hạn được định nghĩa là một xác suất nhỏ nhất mắc sai lầm loại I với 
+giả định giả thiết null là đúng.
+Cách tính p-value được cho trong bảng sau:
+\begin{center}
+    \begin{tabular}{| c | c |}
+        \hline
+        $H_1: \theta < \theta_0$ & $P(T \leqslant t_{obs} | H_0)$ \\
+		$H_1: \theta > \theta_0$ & $P(T \geqslant t_{obs} | H_0)$ \\
+		$H_1: \theta \neq \theta_0$ & $2min\{P(T \leqslant t_{obs} | H_0), P(T \geqslant t_{obs} | H_0)\}$ \\
+        \hline
+    \end{tabular}
+\end{center}
+Lưu ý rằng p-value không phải một giá trị cố định mà nó được tính dựa trên mẫu quan sát và
+với điệu kiện giả thiết $H_0$ được coi là đúng.
+Một giá trị p-value nhỏ thường có ý nghĩa ủng hộ giả thuyết $H_1$. Cho nên, với 1 mức ý nghĩa
+$\alpha$ cho trước, chúng ta sẽ bác bỏ $H_0$ nếu giá trị p-value $< \alpha$
+
+\section{Kiểm định với mức ý nghĩa}
+Để giải bài toán kiểm định giả thuyết thống kê, ta theo các bước sau:
+
+\textit{Bước 1: \textbf{Giả thuyết}}:
+Thiết lập giả thuyết null, $H_0: \theta = \theta_0$. Xác định đối thiết $H_1$ và với tham số $\theta$,
+xác định $\theta < \theta_0$ hay $\theta > \theta_0$ hay $\theta \neq \theta_0$.
+
+\textit{Bước 2: \textbf{Test thống kê}}:
+Lựa chọn test thống kê phù hợp với phân phối của mẫu, hoặc test thống kê chuẩn hóa với 
+giả định $H_0$ là đúng.
+
+Lựa chọn test thống kê, tham số $\hat{\theta}$ là giá trị kì vọng của tham số ứng với $H_0$.
+Ví dụ đối với kiểm định cho trung bình $\mu$ thì $\hat{\theta} = \bar{X}$ hoặc
+với kiểm định cho tỉ lệ $\pi$ thì $\hat{\theta} = P$.
+
+Đại lượng thống kê chuẩn hóa:
+\begin{equation}
+	T = t(X) = \frac{\hat{\theta}(X) - \theta_0}{\sqrt{Var[\hat{\theta}(X)]}}
+\end{equation}
+
+\textit{Bước 3: \textbf{Tính toán miền bác bỏ}}:
+Ta có thể tính toán miền bác bỏ bằng cách sử dụng mức ý nghĩa $\alpha$ hoặc tính p-value.
+Sau đó tính toán giá trị $t(X)$ với giả định $H_0$ đúng. Kí hiệu $t(X) = t_{obs}$
+
+\textit{Bước 4: \textbf{Kết luận về mặt thống kê}}:
+Sử dụng miền bác bỏ hoặc p-value để đưa ra kết luận về giả thiết null. Nếu $t_{obs}$
+rơi vào miền bác bỏ, ta bác bỏ $H_0$, nếu không, ta không ta không đủ cơ sở bác bỏ $H_0$.
+Nếu p-value nhỏ hơn mức ý nghĩa $\alpha$, bác bỏ $H_0$, nếu không, ta không ta không đủ cơ sở bác bỏ $H_0$.
+
+\textit{Bước 4: \textbf{Kết luận}}:
+Đưa ra kết luận bằng lời.
+
+\textbf{Ước lượng khoảng và kiểm định thống kê}
+
+Khi ước lượng khoảng cho một đại lượng thống kê $\hat{\theta}(X)$ đã biết phân phối
+với trung bình $\theta$ và phương sai $\sigma_{\hat{\theta}(X)}$. Tham số chuẩn hóa 
+có dạng $\frac{\hat{\theta}(X) - \theta}{\sigma_{\hat{\theta}(X)}}$ (với phân phối đã biết, 
+kí hiệu là $T$). Với khoảng tin cậy $(1 - \alpha) * 100\%$, ta có ước lượng khoảng cho $\hat{\theta}(X)$
+
+\begin{equation}
+	CI_{1- \alpha}(\theta) = [\hat{\theta}(X) + t_{\alpha/2} \sigma_{\hat{\theta}(X)}, 
+	\hat{\theta}(X) + t_{1 - \alpha/2} \sigma_{\hat{\theta}(X)}]
+\end{equation}
+
+Trong kiểm định thống kê, khi chuẩn hóa test thống kê có dạng tương đương với dạng chuẩn hóa
+của ước lượng khoảng $t_{obs} = \frac{\hat{\theta}(X) - \theta_0}{\sigma_{\hat{\theta}(X)}}$
+, ước lượng khoảng và vùng chấp nhận của giả thiết null tuân theo cùng một phân phối thì với 1
+độ tin cậy $(1 - \alpha) * 100\%$, giả thiết null cho $\theta$ là $H_0: \theta = \theta_0$ không bị bác bỏ.
+
+Ta có tổng quát qua bảng:
+\begin{center}
+	\begin{tabular}{| c | c | c |}
+		\hline
+		Đối thiết & Miền chấp nhận $H_0$ & Ước lượng khoảng $(1 - \alpha)$ \\
+		\hline
+		$H_1: \theta < \theta_0$ & $t_{obs} \geqslant t_\alpha$ & $(-\infty, \hat{\theta}(X) - t_\alpha \sigma_{\hat{\theta}(X)}]$ \\
+		\hline
+		$H_1: \theta > \theta_0$ & $t_{obs} \leqslant t_\alpha$ & $[\hat{\theta}(X) - t_\alpha \sigma_{\hat{\theta}(X)}, \infty)$ \\
+		\hline
+		$H_1: \theta \neq \theta_0$ & $t_{\alpha/2} \leqslant t_{obs} \leqslant t_{1 - \alpha/2}$ &
+		$[\hat{\theta}(X) + t_{\alpha/2} \sigma_{\hat{\theta}(X)}, \hat{\theta}(X) + t_{1 - \alpha/2} \sigma_{\hat{\theta}(X)}]$ \\
+		\hline
+	\end{tabular}
+\end{center}

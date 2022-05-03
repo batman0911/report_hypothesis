@@ -1,0 +1,61 @@
+\chapter{Kiểm định cho phương sai}
+
+\section{Kiểm định cho phương sai với mẫu có phân bố chuẩn}
+
+Cho $n$ mẫu ngẫu nhiên $X_1, X_2, .. , X_n$ có phân bố chuẩn $N(\mu, \sigma)$, 
+đại lượng chuẩn hóa sau có phân bố $\chi^2$:
+\begin{equation}
+    \frac{(n - 1)S^2}{\sigma^2} \sim \chi^2_{n - 1}
+\end{equation}
+Giả thiết null cho phương sai $H_0: \sigma^2 = \sigma_0^2$, giá trị test thống kê:
+$$\chi_{obs}^2 = \frac{(n - 1)S^2}{\sigma_0^2}$$
+Ba đối thiết và miền bác bỏ $H_0$ tương ứng cho dưới bảng sau:
+
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        Đối thiết & $H_1: \sigma^2 < \sigma_0^2$ & $H_1: \sigma^2 > \sigma_0^2$ & $H_1: \sigma^2 \neq \sigma_0^2$ \\
+        Miền bác bỏ & $\chi_{obs}^2 < \chi_{\alpha, n - 1}^2$ & $\chi_{obs}^2 > \chi_{1 - \alpha, n - 1}^2$ & $\chi_{obs}^2 < \chi_{\alpha/2, n - 1}^2 \cup \chi_{obs}^2 > \chi_{1 - \alpha/2, n - 1}^2$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\section{Bài tập}
+
+\textbf{pr5}: Xem xét biến totalprice trong tập dữ liệu VT2005 trong package PASWR. Người thẩm định nới rằng với những
+căn hộ có diện tích lớn hơn hoặc bằng $90m^2$ thì độ phương sai giá nhỏ hơn $60000^2\text{\euro}^2$.
+Kiểm định giả thiết xem phương sai có lớn hơn $60000^2\text{\euro}^2$. 
+
+Đầu tiên ta lọc ra từ dataframe gốc những căn hộ có diện tích lớn hơn hoặc bằng $90m^2$ 
+và tính được cỡ mẫu.
+
+\begin{lstlisting}
+    greater90 <- subset(x = vit2005, subset = area >= 90)
+    n <- length(greater90$totalprice) # n = 94
+\end{lstlisting}
+
+Sử dụng quy trình 5 bước:
+
+\textit{Bước 1: \textbf{Giả thuyết}}: 
+Giả thuyết null, $H_0: \sigma^2 = 60000^2$ với đối thiết $H_1: \sigma^2 > 60000^2$
+
+\textit{Bước 2: \textbf{Test thống kê}}:
+Sử dụng test thống kê cho $S^2$. Ta tính lần lượt $S^2$ và tham số chuẩn hóa $\frac{(n - 1) S^2}{\sigma_0^2}$
+với giả định $H_0$ là đúng 
+\begin{lstlisting}
+    v <- var(greater90$totalprice)
+    x <- (n - 1) * v / (60000^2)
+\end{lstlisting}
+
+so sánh tham số chuẩn hóa với  $\chi_{\alpha, n - 1}^2$
+\begin{lstlisting}
+    chi <- qchisq(0.95, n - 1)
+\end{lstlisting}
+Kết quả thu được $\chi_{obs}^2 = 98.7603$ và $\chi_{0.95, 94 - 1} = 116.511$. 
+Miền bác bỏ: $\chi_{obs}^2 > \chi_{1 - \alpha, n - 1}^2$.
+
+\textit{Bước 4: \textbf{Kết luận về mặt thống kê}}:
+Từ miền bác bỏ, không thể bác bỏ $H_0$ do $\chi_{obs}^2 = 98.7603$ không lớn hơn $\chi_{0.95, 94 - 1} = 116.511$
+
+\textit{Bước 5: \textbf{Kết luận}}: Không đủ bằng chứng để  khẳng định phương sai của giá cắn hộ có diện tích 
+lớn hơn hoặc bằng $90m^2$ thì lớn hơn $60000^2\text{\euro}^2$
