@@ -119,3 +119,77 @@ Kết luận: với độ tin cậy $95\%$ ta có thể bác bỏ giả thiết 
 \textbf{pr12}: Xem xét data frame Fertilize, chiều cao của cây được cho qua biến self
 
 (a) Kiểm định giả thiết cho chiều cao trung bình của cây lớn hơn 17 inchs với mức ý nghĩa $\alpha = 5\%$
+
+(b) Ước lượng khoảng một phía với độ tin cậy $95\%$ cho chiều cao trung bình ($H_1: \mu > 17$)
+
+(c) Tính cỡ mẫu cần thiết để có giá trị power là 0.9 với $\mu_1 = 18$ inchs giả thiết $\sigma = s$
+
+(d) Tính power cho kiểm định trong phần a với $\sigma = s$ và $\mu_1 = 18$
+
+\textit{Lời giải:}
+
+(a) Giả thiết $H_0: \mu = 17$ và đối thiết $H_1: \mu > 17$
+
+\begin{lstlisting}
+    library(PASWR)
+    data("Fertilize")
+    self <- Fertilize$self
+    t.test(self, mu = 17, alternative = c("greater"))
+\end{lstlisting}
+
+Kết quả thu được:
+
+\begin{lstlisting}
+        One Sample t-test
+
+    data:  self
+    t = 1.0854, df = 14, p-value = 0.148
+    alternative hypothesis: true mean is greater than 17
+    95 percent confidence interval:
+    16.64196      Inf
+    sample estimates:
+    mean of x 
+    17.575 
+\end{lstlisting}
+Ta thấy $p-value = 0.148 > \alpha = 0.05$ nên chưa đủ cơ sở để bác bỏ $H_0$.
+
+Kết luận: chưa đủ cơ sở để kết luận chiều cao trung bình $\mu > 17$ inchs với 
+mức ý nghĩa $\alpha = 5\%$.
+
+(b) Ước lượng khoảng với độ tin cậy $95\%$ cho chiều cao trung bình của cây là $\mu > 16.642$ inchs
+
+(c) Với hàm power, ta có 
+Tham số chuẩn hóa $Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}$ với $\mu_{obs} = \bar{X}$
+\begin{align*}
+    \begin{split}
+        0.9 = 1 - \beta(\theta) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) \\
+        = P(Z > Z_{1 - \alpha}) = P\left(\frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} > Z_{1 - \alpha}\right)
+        = P\left(\frac{\bar{X} - \mu_0}{s / \sqrt{n}} > Z_{1 - \alpha}\right)
+    \end{split}
+\end{align*}
+Ở đây, ta giả sử $\sigma = s$, kết hớp với phương trình trên ta có:
+
+$$n > \left(\frac{Z_{0.9}s}{\bar{X} - \mu}\right)^2$$
+
+\begin{lstlisting}
+    xmean <- mean(self)
+    s2 <- var(self)
+    z_a <- qnorm(0.9)
+    n_min <- (z_a * sqrt(s2) / (xmean - 18))^2
+\end{lstlisting}
+
+Ta thu được $n_{min} = 38.2747$. Như vậy ta có thể kết luận cỡ mẫu nhỏ nhất để test có power $0.9$, $\mu = 18$ và $\sigma = s$ là $39$
+
+(d) 
+\begin{align*}
+    \begin{split}
+        \text{power} = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) = P\left(\mu_{obs} > \mu_1 | \sigma = s, n\right) \\
+        = P\left(\frac{\bar{X} - \mu_1}{s/ \sqrt{n}} > Z_{1 - \alpha}\right) = 0.2112      
+    \end{split}
+\end{align*}
+
+\begin{lstlisting}
+    n <- length(self)
+    pnorm(xmean, 18, sqrt(s2/n)) # = 0.2111956
+\end{lstlisting}
+
