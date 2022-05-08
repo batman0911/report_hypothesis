@@ -24,7 +24,7 @@ Ta có
 \end{center}
 
 Trong đó $\Phi(z_\alpha) = \alpha$ \\
-Nhắc lại, trong ngôn ngữ $R$
+Nhắc lại, trong ngôn ngữ \lstinline{R}
 \begin{lstlisting}{language=R}
     z.x = qnorm(x)
 \end{lstlisting}
@@ -60,7 +60,7 @@ Ta có:
     \end{tabular}
 \end{center}
 
-Để tính $t_{x; y}$ trong $R$ ta dùng hàm:
+Để tính $t_{x; y}$ trong \lstinline{R} ta dùng hàm:
 
 \begin{lstlisting}{language=R}
     t.x.y = qt(x, y)
@@ -75,7 +75,7 @@ $$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}$$
 Hàm power: 
 $$1 - \beta = P(|Z| > Z_{1 - \alpha / 2}) = P(Z < Z_{\alpha / 2}) + P(Z > Z_{1 - \alpha/2})$$
 
-Code $R$:
+Code \lstinline{R}:
 \begin{lstlisting}
     mu = 100
     mu0 = 120
@@ -94,7 +94,7 @@ Kết quả $1- \beta = 0.67$
 \textbf{pr4}: Kiểm định cho giả thiết $H_0: \mu = 170$ và đối thiết $H_1: \mu < 170$
 cho đại lượng loss trong tập dữ liệu Rubber.
 
-Cách làm đơn giản với code $R$:
+Cách làm đơn giản với code \lstinline{R}:
 \begin{lstlisting}
     library(MASS)
     data("Rubber")
@@ -158,38 +158,67 @@ mức ý nghĩa $\alpha = 5\%$.
 
 (b) Ước lượng khoảng với độ tin cậy $95\%$ cho chiều cao trung bình của cây là $\mu > 16.642$ inchs
 
-(c) Với hàm power, ta có 
-Tham số chuẩn hóa $Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}$ với $\mu_{obs} = \bar{X}$
-\begin{align*}
-    \begin{split}
-        0.9 = 1 - \beta(\theta) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) \\
-        = P(Z > Z_{1 - \alpha}) = P\left(\frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} > Z_{1 - \alpha}\right)
-        = P\left(\frac{\bar{X} - \mu_0}{s / \sqrt{n}} > Z_{1 - \alpha}\right)
-    \end{split}
-\end{align*}
-Ở đây, ta giả sử $\sigma = s$, kết hớp với phương trình trên ta có:
+% (c) Với hàm power, ta có 
+% Tham số chuẩn hóa $Z = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}$ với $\mu_{obs} = \bar{X}$
+% \begin{align*}
+%     \begin{split}
+%         0.9 = 1 - \beta(\theta) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) \\
+%         = P(Z > Z_{1 - \alpha}) = P\left(\frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}} > Z_{1 - \alpha}\right)
+%         = P\left(\frac{\bar{X} - \mu_0}{s / \sqrt{n}} > Z_{1 - \alpha}\right)
+%     \end{split}
+% \end{align*}
+% Ở đây, ta giả sử $\sigma = s$, kết hớp với phương trình trên ta có:
 
-$$n > \left(\frac{Z_{0.9}s}{\bar{X} - \mu}\right)^2$$
+% $$n > \left(\frac{Z_{0.9}s}{\bar{X} - \mu}\right)^2$$
 
-\begin{lstlisting}
-    xmean <- mean(self)
-    s2 <- var(self)
-    z_a <- qnorm(0.9)
-    n_min <- (z_a * sqrt(s2) / (xmean - 18))^2
-\end{lstlisting}
+% \begin{lstlisting}
+%     xmean <- mean(self)
+%     s2 <- var(self)
+%     z_a <- qnorm(0.9)
+%     n_min <- (z_a * sqrt(s2) / (xmean - 18))^2
+% \end{lstlisting}
 
-Ta thu được $n_{min} = 38.2747$. Như vậy ta có thể kết luận cỡ mẫu nhỏ nhất để test có power $0.9$, $\mu = 18$ và $\sigma = s$ là $39$
+% Ta thu được $n_{min} = 38.2747$. Như vậy ta có thể kết luận cỡ mẫu nhỏ nhất để test có power $0.9$, $\mu = 18$ và $\sigma = s$ là $39$
 
 (d) 
 \begin{align*}
     \begin{split}
-        \text{power} = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) = P\left(\mu_{obs} > \mu_1 | \sigma = s, n\right) \\
-        = P\left(\frac{\bar{X} - \mu_1}{s/ \sqrt{n}} > Z_{1 - \alpha}\right) = 0.2112      
+        power(\mu_1) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) = P\left(\mu_{obs} > \mu_0 | N\left(\mu_1, \frac{s}{\sqrt{n}}\right)\right) \\
+        = P\left( Z > Z_{1 - \alpha} \right) = 0.596
     \end{split}
 \end{align*}
 
 \begin{lstlisting}
     n <- length(self)
-    pnorm(xmean, 18, sqrt(s2/n)) # = 0.2111956
+    z <- qnorm(0.95, 17, sqrt(s2/n))
+    round(1 - pnorm(z, 18, sqrt(s2/n)), 3) # = 0.596
+\end{lstlisting}
+
+(c)
+Thử cho giá trị $n$ khác nhau vào đoạn code \lstinline{R} trên và tính giá trị power ta thấy giá trị nhỏ
+nhất để có $power = 0.9$ là $n = 36$
+
+\textbf{pr18}: Tìm power của giả thiết $H_0: \mu = 65$, đối thiết $H_1: \mu > 65$
+nếu $\mu_1 = 70$, mức ý nghĩa $\alpha = 0.01$ cho data \lstinline{hard}, data frame \lstinline{Rubber}.
+Gỉả sử $\sigma = s$
+
+\textit{Lời giải}:
+\begin{align*}
+    \begin{split}
+        power(\mu_1) = P(\text{chấp nhận } H_1 | H_1 \text{ đúng}) = P\left(\mu_{obs} > \mu_0 | N\left(\mu_1, \frac{s}{\sqrt{n}}\right)\right) \\
+        = P(Z > Z_{1 - \alpha}) = 0.496
+        % = P\left( Z > \frac{\mu_0 - \mu_1}{s/\sqrt{n}} \right) = 0.988
+    \end{split}
+\end{align*}
+
+\lstinline{R} code:
+
+\begin{lstlisting}
+    library(MASS); data("Rubber")
+    hard <- Rubber$hard
+    n <- length(hard)
+    s2 <- var(hard)
+    z <- qnorm(0.99, 65, sqrt(s2/n))
+    round(1 - pnorm(z, 70, sqrt(s2/n)), 3) # = 0.469
 \end{lstlisting}
 
