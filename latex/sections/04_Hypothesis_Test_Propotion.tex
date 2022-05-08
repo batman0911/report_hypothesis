@@ -122,3 +122,121 @@ Kết quả thu được:
 \end{lstlisting}
 
 $\text{\lstinline{p-value}} < \alpha = 0.05$, ta có kết luận tương tự như trên.
+
+\textbf{pr19}: Giám đóc nhà đô thị ở Vitoria, Tây Ban Nha nói rằng ít nhất $50\%$
+các căn hộ có nhiều hơn 1 nhà tắm và ít nhất $70\%$ các căn hộ có một thang máy.
+
+(a) Kiểm chứng tuyên bố của giám đốc. Test thống kê với mức ý nghĩa $\alpha = 0.1$. 
+Dữ liệu trong cột \lstinline{toilets}, data frame \lstinline{vit2005}.
+
+(b) Kiểm chứng tuyên bố về thang máy với mức ý nghĩa $\alpha = 0.1$ sử dụng phương pháp xấp xỉ
+và phương pháp chính xác.
+
+(c) Kiểm tra xem tỷ lệ các căn hộ được xây dựng trước năm 1980 không có nhà để xe có
+tỷ lệ có thang máy cao hơn không có thang máy?
+
+\textit{Lời giải}:
+(a) 
+Bài toán kiểm định: Giả thiết $H_0: \pi = 0.5$ với đối thiết $H_1: \pi > 0.5$
+
+Ta sử dụng hàm dựng sẵn trong \lstinline{R} \lstinline{binom.test()} như sau:
+
+\begin{lstlisting}
+    data("vit2005")
+    toilets <- vit2005$toilets
+    n <- length(toilets)
+    ns <- length(toilets[toilets > 1])
+    binom.test(ns, n, 0.5, alternative = c("less"), conf.level = 0.1)
+\end{lstlisting}
+
+Thu được kết quả:
+
+\begin{lstlisting}
+        Exact binomial test
+
+    data:  ns and n
+    number of successes = 102, number of trials = 218, p-value = 0.8452
+    alternative hypothesis: true probability of success is greater than 0.5
+    10 percent confidence interval:
+    0.5089864 1.0000000
+    sample estimates:
+    probability of success 
+                0.4678899 
+\end{lstlisting}
+Ta thấy giá trị $\text{\lstinline{p-value}} = 0.8452 > 0.1$ nên chưa đủ cơ sở để bác bỏ $H_0$
+
+Kết luận: Chưa đủ cơ sở để bác bỏ tuyên bố có ít nhất $50\%$ số căn hộ có nhiều hơn 1 nhà tắm
+với mức ý nghĩa $\alpha = 0.1$.
+
+(b) 
+Bài toán kiểm định: Giả thiết: $H_0: p = 0.75$ với đối thiết $H_1: p > 0.75$
+
+\textit{Phương pháp xấp xỉ chuẩn}
+
+Đầu tiên ta khởi tạo data cần tính toán:
+
+\begin{lstlisting}
+    data("vit2005")
+    elevator <- vit2005$elevator
+    n <- length(elevator) # = 218
+    ns <- length(elevator[elevator == 1]) # = 174
+\end{lstlisting}
+
+Kiểm tra hiệu chỉnh:
+
+\begin{lstlisting}
+    pi0 <- 0.75
+    p <- ns / n # = 174/218 > 0.75
+    p - pi0 - 1/(2*n) # > 0
+\end{lstlisting}
+
+Ta có tham số chuẩn hóa 
+$$Z = \frac{p - \pi_0 - \frac{1}{2n}}{\sqrt{\frac{\pi_0(1 - \pi_0)}{n}}} \sim N(0, 1)$$
+
+Thay số vào phương trình trên ta tính được giá trị của $Z = 1.564124 > Z_{0.9} = 1.281552$
+nên có thể bác bỏ giả thiết $H_0$
+
+Kết luận: Chấp nhận khẳng định có ít nhất $75\%$ số căn hộ có thang máy với mức ý nghĩa $\alpha = 0.1$.
+
+\textit{Phương pháp chính xác}
+
+Tính giá trị \lstinline{p-value}:
+
+\begin{align*}
+    \text{p-value} = P(Y \geqslant y_{obs} | H_0) = \sum_{i = y_{obs}}^{n}\begin{pmatrix}
+        n \\ i
+    \end{pmatrix} \pi_0^i(1 - \pi_0)^{n - i} \\
+    = \sum_{i = 174}^{218} \begin{pmatrix}
+        218 \\ i
+    \end{pmatrix} 0.75^i (0.25)^{218-i}
+\end{align*}
+Ta có thể tính trong \lstinline{R} như sau:
+
+\begin{lstlisting}
+    pvalue <- sum(dbinom(ns:n, n, 0.75)) # = 0.05643458
+\end{lstlisting}
+
+Ta có $\text{\lstinline{p-value}} < 0.1$ nên có thể bác bỏ $H_0$.
+
+Ngoài ra cũng có thể dùng hàm \lstinline{binom.test()} như sau:
+
+\begin{lstlisting}
+    binom.test(x = ns, n = n, p = 0.75, alternative = c("greater"), conf.level = 0.1)
+\end{lstlisting}
+
+Ta thu được kết quả tương tự:
+
+\begin{lstlisting}
+        Exact binomial test
+
+    data:  ns and n
+    number of successes = 174, number of trials = 218, p-value = 0.05643
+    alternative hypothesis: true probability of success is greater than 0.75
+    10 percent confidence interval:
+    0.8288551 1.0000000
+    sample estimates:
+    probability of success 
+                0.7981651 
+\end{lstlisting}
+
+Kết luận: Chấp nhận khẳng định có ít nhất $75\%$ số căn hộ có thang máy với mức ý nghĩa $\alpha = 0.1$.
