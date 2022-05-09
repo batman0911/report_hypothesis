@@ -203,7 +203,7 @@
 	\isthesis@new@option{label-atthe}{label@atthe}{}
 	\isthesis@new@option{label-atthex}{label@atthex}{}
 	\isthesis@new@option{label-context}{label@context}{in the context of the seminar}
-	\isthesis@new@option{secondary-logo}{secondary@logo}{assets/idea-lab.png}
+	\isthesis@new@option{secondary-logo}{secondary@logo}{}
 	\newcommand{\listabbreviationname}{Abbreviations}
 	\newcommand{\listsymbolname}{Symbols}
 	\newcommand{\authorshipstatementname}{Declaration of Academic Integrity}
@@ -621,10 +621,10 @@
 					\> \> \isthesis@author@email \\
 				    %\> \> \isthesis@author@studies \\
 				} %
-				\ifthenelse{\equal{\isthesis@author@matriculation}{}}{\relax}{ %
-					\> \> \isthesis@author@matriculation \\} %
-				\> \> \\
-					\> \isthesis@label@submission: \> {\isthesis@submission@date \DTMusedate{submissiondate}}
+				% \ifthenelse{\equal{\isthesis@author@matriculation}{}}{\relax}{ %
+				% 	\> \> \isthesis@author@matriculation \\} %
+				% \> \> \\
+				% 	\> \isthesis@label@submission: \> {\isthesis@submission@date \DTMusedate{submissiondate}}
                 \end{tabbing}%
             }%
         \end{center}\par%
