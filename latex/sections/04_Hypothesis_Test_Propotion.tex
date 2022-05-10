@@ -2,7 +2,7 @@
 
 \section{Kiểm định cho tỉ lệ với trong test nhị thức}
 
-Ta xem xét biến ngẫu nhiên có phân bố nhị thức $Y \sim Bin(n, \pi)$, giả thiết null
+Ta xem xét biến ngẫu nhiên có phân bố nhị thức $Y \sim Bin(n, \pi)$, giả thiết không
 $H_0: \pi = \pi_0$. 
 Test thống kê cho $y_{obs} = \text{Số quan sát thành công}$
 
@@ -47,7 +47,7 @@ Hàm \lstinline{prop.test()} trong \lstinline{R} mặc định thêm vào hiệu
 
 Ta có bảng tổng quan như sau
 
-Giải thiết null $H_0: \pi = \pi_0$
+Giải thiết không $H_0: \pi = \pi_0$
 
 \begin{center}
     \begin{tabular}{| c | c |}
@@ -85,7 +85,7 @@ Giải thiết null $H_0: \pi = \pi_0$
 Tháng 6 năm 2005, một nhóm gồm 3740 người nước ngoài được điều tra ngẫu nhiên thì có 87 người 
 Bolivia. Có thể phòng đoán số người nhập cư Boliva đã tăng lên hay không với mức ý nghĩa $\alpha = 0.05$.
 
-Giả thiết null: $H_0: P = \pi_0 = 0.004$, đối thiết $P > \pi_0 = 0.004$
+Giả thiết không: $H_0: P = \pi_0 = 0.004$, đối thiết $P > \pi_0 = 0.004$
 Với $n = 3740$, ta có $n\pi_0$ và $n(1 - \pi_0)$ đều lớn hơn 10 nên ta có thể sử dụng xấp xỉ chuẩn 
 để kiểm định cho tỉ lệ trong bài toán này.
 

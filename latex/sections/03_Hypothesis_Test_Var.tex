@@ -22,10 +22,39 @@ Ba đối thiết và miền bác bỏ $H_0$ tương ứng cho dưới bảng sa
     \end{tabular}
 \end{center}
 
+\textit{Ví dụ 9.14} Ta có thể giải bài toán sử dụng quy trình 5 bước:
+
+\textit{Xác định giải thiết}: Giả thiết $H_0: \sigma^2 = 0.004$ với đối thiết $H_1: \sigma^2 > 0.004$
+
+\textit{Test thống kê}: 
+Trước hết ta tính $S^2$ cho giá trị quan sát: 
+
+\begin{lstlisting}
+    x <- c(4.06, 4.02, 4.04, 4.04, 3.97, 3.87, 4.03, 3.85, 3.91, 3.98, 3.96, 3.90, 3.95, 4.11, 4.00, 4.12, 4.00, 3.98, 3.92, 4.02)
+    n <- length(x)
+    s2 <- var(x)
+\end{lstlisting}
+
+Tham số chuẩn hóa với giả sử $H_0$ là đúng: $\frac{(n - 1)S^2}{\sigma_0^2} \sim \chi_{n - 1}^2$
+
+\textit{Miền bác bỏ}: 
+
+Miền bác bỏ $\chi_{obs}^2 > \chi_{1 - \alpha; n - 1}$
+
+Với $\alpha = 0.05$ ta có $\chi_{obs}^2 = \frac{(n - 1)S^2}{\sigma_0^2} = 25.26 < \chi_{0.95;19}^2 = 30.14$
+
+\textit{Kết luận thống kê}: 
+
+Ta thấy $\chi_{obs}^2 < \chi_{1 - \alpha; n - 1}^2$ nên không đủ cơ sở để bác bỏ $H_0$.
+
+\textit{Kết luận}: Không đủ cơ sở để  nói rằng phương sai của vòng đệm lớn hơn $0.004 cm^2$
+
+
+
 \section{Bài tập}
 
 \textbf{pr5}: Xem xét biến totalprice trong tập dữ liệu VT2005 trong package PASWR. Người thẩm định nới rằng với những
-căn hộ có diện tích lớn hơn hoặc bằng $90m^2$ thì độ phương sai giá nhỏ hơn $60000^2\text{\euro}^2$.
+căn hộ có diện tích lớn hơn hoặc bằng $90m^2$ thì phương sai giá nhỏ hơn $60000^2\text{\euro}^2$.
 Kiểm định giả thiết xem phương sai có lớn hơn $60000^2\text{\euro}^2$. 
 
 Đầu tiên ta lọc ra từ dataframe gốc những căn hộ có diện tích lớn hơn hoặc bằng $90m^2$ 
